@@ -1,0 +1,248 @@
+<template>
+  <div class="data-table">
+    <el-table :data="tableData" stripe style="width: 100%">
+      <el-table-column type="index"></el-table-column>
+      <el-table-column prop="name" label="角色名称"></el-table-column>
+      <!-- <el-table-column prop="title" label="角色描述"></el-table-column> -->
+      <el-table-column label="状态">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.status==1" type="success" size="medium">正常</el-tag>
+          <el-tag v-else type="danger" size="medium">异常</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column prop="utime" label="创建时间"></el-table-column>
+      <!-- v-if="hasPer('dispatch:edit')||hasPer('dispatch:delete')" -->
+      <el-table-column
+        fixed="right"
+        label="操作"
+        width="180"
+      >
+        <template slot-scope="scope">
+          <el-button
+            @click="editOne(scope.row)"
+            type="primary"
+            icon="el-icon-edit-outline"
+            size="mini"
+          >授权</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <div class="page">
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :page-sizes="[10, 20, 30, 50]"
+        :page-size="10"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total"
+      ></el-pagination>
+    </div>
+     <el-dialog
+      title="角色授权"
+      :visible.sync="dialogVisible"
+      width="80%"
+      @closed="handleClosed"
+    >
+      <el-form label-width="80px">
+        <el-form-item  >           
+             <div v-for=" (menu,_index) in permissionList" :key="menu.menuName">
+            <span style="width: 100px;display: inline-block;">
+              <el-button :type="isMenuNone(_index)?'':(isMenuAll(_index)?'success':'primary')" size="mini"
+                         style="width:120px;"
+                         @click="checkAll(_index)">{{menu.menuName}}</el-button>
+            </span>
+            <div style="display: inline-block;margin-left:20px;">
+              <el-checkbox-group v-model="permissionCheck">
+                <el-checkbox v-for="perm in menu.permission" :label="perm.id" @change="checkRequired(perm,_index)"
+                             :key="perm.id">
+                  <span :class="{requiredPerm:perm.requiredPerm===1}">{{perm.permissionName}}</span>
+                </el-checkbox>
+              </el-checkbox-group>
+            </div>
+          </div>
+          <p style="color:#848484;">说明:红色权限为对应菜单内的必选权限</p>
+
+        </el-form-item>
+      </el-form>
+     </el-dialog>
+
+
+
+
+  </div>
+</template>
+<script>
+import { roleList ,getPermission} from "@/api/v1";
+import {mapGetters} from 'vuex'
+export default {
+  name: "role",
+  created() {
+      this.getRoleList()
+  },
+  data() {
+    return {
+        dialogVisible:false,
+        tableData:[],
+        total:0,
+      limit: 10,
+      offset: 1,
+      permissionList:[],
+       permissionCheck:[],
+    };
+  },
+  computed:{
+      ...mapGetters(['appid'])
+  },    
+  methods: { 
+      // 获取权限列表
+        getPermission(data){
+            getPermission(data).then(res=>{
+                let data = res.data.rows;
+                var arr = []
+                console.log(JSON.stringify(data))
+                data.forEach(item => {
+                   item.children.forEach(itemA=>{
+                       let permission = []
+                       itemA.children.forEach(itemB=>{
+                           permission.push({
+                             id:itemB.id,
+                               permissionName:itemB.text
+                           })
+                       })
+                    arr.push({
+                        menuName:itemA.text,
+                        permission:permission
+                    })
+                   })
+                });
+                 this.permissionList = arr;
+                 console.log(this.permissionList)
+            })
+        },
+       // 弹窗关闭
+    handleClosed() {
+      this.dialogVisible = false;
+    },
+      isMenuNone(_index) {
+        //判断本级菜单内的权限是否一个都没选
+        let menu = this.permissionList[_index].permission;
+        let result = true;
+        for (let j = 0; j < menu.length; j++) {
+          
+          if (this.permissionCheck.indexOf(menu[j].id) > -1) {
+            result = false;
+            break;
+          }
+        }
+        return result;
+      },
+      isMenuAll(_index) {
+        //判断本级菜单内的权限是否全选了
+        let menu = this.permissionList[_index].permission;
+        let result = true;
+        for (let j = 0; j < menu.length; j++) {
+          if (this.permissionCheck.indexOf(menu[j].id) < 0) {
+            result = false;
+            break;
+          }
+        }
+        return result;
+      },
+      checkAll(_index) {
+        //点击菜单   相当于全选按钮
+        let v = this;
+        if (v.isMenuAll(_index)) {
+          //如果已经全选了,则全部取消
+          v.noPerm(_index);
+        } else {
+          //如果尚未全选,则全选
+          v.allPerm(_index);
+        }
+      },
+      allPerm(_index) {
+        //全部选中
+        let menu = this.permissionList[_index].permission;
+        for (let j = 0; j < menu.length; j++) {
+          this.addUnique(menu[j].id, this.permissionCheck)
+        }
+      },
+      noPerm(_index) {
+        //全部取消选中
+        let menu = this.permissionList[_index].permission;
+        for (let j = 0; j < menu.length; j++) {
+          let idIndex = this.permissionCheck.indexOf(menu[j].id);
+          if (idIndex > -1) {
+            this.permissionCheck.splice(idIndex, 1);
+          }
+        }
+      },
+      addUnique(val, arr) {
+        //数组内防重复地添加元素
+        let _index = arr.indexOf(val);
+        if (_index < 0) {
+          arr.push(val);
+        }
+      },
+      checkRequired(_perm, _index) {
+        //本方法会在勾选状态改变之后触发
+        let permId = _perm.id;
+        if (this.permissionCheck.indexOf(permId) > -1) {
+          //选中事件
+          //如果之前未勾选本权限,现在勾选完之后,tempRole里就会包含本id
+          //那么就要将必选的权限勾上
+          this.makeReuqiredPermissionChecked(_index);
+        } else {
+          //取消选中事件
+          if (_perm.requiredPerm === 1) {
+            //如果是必勾权限,就把本菜单的权限全部移出
+            //(其实也可以提示用户本权限是菜单里的必选,请先取消勾选另外几个权限,交互太麻烦,此处就直接全部取消选中了)
+            this.noPerm(_index);
+          }
+        }
+      },
+      makeReuqiredPermissionChecked(_index) {
+        //将本菜单必选的权限勾上
+        let menu = this.permissionList[_index].permission;
+        for (let j = 0; j < menu.length; j++) {
+          let perm = menu[j];
+          if (perm.requiredPerm === 1) {
+            //找到本菜单的必选权限,将其勾上
+            this.addUnique(perm.id, this.permissionCheck)
+          }
+        }
+      },
+    getRoleList(){
+        let data = {limit:this.limit,offset:this.offset}
+        roleList(data).then(res=>{
+            this.tableData = res.data.rows
+            this.total = res.data.total
+        })
+    },
+      //编辑一个
+    editOne(e){
+        this.dialogVisible = true;
+        let data = {id:e.id,systemId:this.appid};
+        this.getPermission(data)
+    },
+ 
+ //分页
+    handleSizeChange(val) {
+      this.limit = val;
+    },
+    handleCurrentChange(val) {
+      this.offset = val;
+    }
+  },
+  watch: {
+    limit(res) {
+      this.getRoleList({ limit: res, offset: this.offset });
+    },
+    offset(res) {
+      this.getRoleList({ limit: this.limit, offset: res });
+    }
+  }
+};
+</script>
+
+<style>
+</style>

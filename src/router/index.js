@@ -69,7 +69,7 @@ export const asyncRouterMap = [
       {
         path: 'user',
         name: '用户管理',
-        component:() =>  import('@/view/v1/organization/organization'),
+        component:() =>  import('@/view/v1/permission/user'),
         meta: { title: '用户管理', icon: 'icon-information' },
         menu: "upms:user:read",
         hidden:false
@@ -77,7 +77,7 @@ export const asyncRouterMap = [
       {
         path: 'menu',
         name: '菜单管理',
-        component:() =>  import('@/view/v1/organization/organization'),
+        component:() =>  import('@/view/v1/permission/menu'),
         meta: { title: '菜单管理', icon: 'icon-information' },
         menu: "upms:permission:read",
         hidden:false

@@ -1,5 +1,5 @@
 import {getSystem,getPermission} from '../../api/login'
-import { stat } from 'fs';
+
 function menuList(data){
   if(! (data instanceof Array)){
       alert("必须为数组格式数据")
@@ -48,7 +48,8 @@ const state={
     // 用户信息部分
     name:'',
     avatar: 'https://www.gravatar.com/avatar/6560ed55e62396e40b34aac1e5041028?imageView2/1/w/80/h/80',
-    userId:null
+    userId:null,
+    loadingTable:false
 
 
   };
