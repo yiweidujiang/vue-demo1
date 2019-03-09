@@ -41,7 +41,7 @@ export function addPermission(data){
     return request({
         url:'/v1/manage/role/permission/',
         method:'post',
-        data
+        params:data
     })
 }
 // 根据组织获取用户
@@ -70,5 +70,68 @@ export function menuStatus(data){
             status:data.status,
             name:data.name
         }
+    })
+}
+// 系统列表
+export function SystemList(data){
+    return request({
+        url:"/v1/manage/system/list",
+        method:"get",
+        params:data
+    })
+}
+// 禁用系统
+export function SystemDelete(data){
+    return request({
+        url:'/v1/manage/system/delete/'+data.id,
+        method:"get",
+    })
+}
+export function SystemOne(e){
+    let data = null;
+    return new Promise((resolve)=>{
+        data = e;
+        resolve(data)
+    })
+}
+// 新加系统
+export function SystemAdd(e){
+    return request({
+        url:'/v1/manage/system/create',
+        method:'post',
+       headers:{
+           "Content-Type":"application/json"
+       },
+        data:JSON.stringify(e)
+
+    })
+}
+export function LogList(data){
+    return request({
+        url:'/v1/manage/log/list',
+        method:'get',
+        params:data
+    })
+}
+// 删除日志
+export function LogDelete(data){
+    return request({
+        url:"/v1/manage/log/delete/"+data.id,
+        method:"get"
+    })
+}
+// 角色列表
+export function RoleList(data){
+    return request({
+        url:'/v1/manage/user/role',
+        method:"post",
+        params:data
+    })
+}
+export function updateUser(data){
+    return request({
+        url:'/v1/manage/user/roleUpdate',
+        method:'post',
+        params:data
     })
 }

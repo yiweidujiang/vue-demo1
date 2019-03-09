@@ -10,7 +10,8 @@ const request = axios.create({
 request.interceptors.request.use(config => {
     if (getToken()) {
         config.headers = {
-            "Authorization": getToken()
+            "Authorization": getToken(),
+            "Content-Type":"application/x-www-form-urlencoded; charset=UTF-8"
         }
     }
     return config

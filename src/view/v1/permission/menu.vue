@@ -88,7 +88,7 @@ export default {
     },
     //编辑一个
     editOne(e) {
-      let data = { id: e.pid, name: e.name };
+      let data = { id: e.permissionId, name: e.name };
       if (e.status == 0) {
         data.status = 1;
       } else {
@@ -99,7 +99,7 @@ export default {
           type:res.code==1?"success":"error",
           message: res.message,
           onClose: () => {
-            this.getMenuList();
+           this.getMenuList();
           }
         });
       });

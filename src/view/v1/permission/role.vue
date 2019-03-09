@@ -90,7 +90,10 @@ export default {
           this.CheckedKeys;
           let data = {roleId:this.editId,permissionId:this.CheckedKeys.join(',') }
           addPermission(data).then(res =>{
-              console.log(res)
+              this.$message({
+                type:res.code==1?"success":"error",
+                message:res.message
+              })
           })
 
       },
