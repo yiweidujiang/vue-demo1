@@ -135,3 +135,12 @@ export function updateUser(data){
         params:data
     })
 }
+
+// 获取年级班级
+export function ClassList(data){
+    return request({
+        url:'/v1/manage/classList',
+        method:'post',
+        params:data
+    })
+}

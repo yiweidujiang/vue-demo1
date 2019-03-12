@@ -51,7 +51,7 @@
       <el-form label-width="80px" ref="formv">
         <el-form-item>
           <el-checkbox-group v-model="checkedRoles" >
-            <el-checkbox :title="item.name" style="width:120px;overflow:hidden;text-overflow: ellipsis;white-space: nowrap;" v-for="item in roles" :label="item.id" border :key="item.id" :checked="item.checked">{{item.name}}</el-checkbox>
+            <el-checkbox :title="item.name" style="width:120px;overflow:hidden;text-overflow: ellipsis;white-space: nowrap;" v-for="item in roles" :label="item.roleId" border :key="item.id" :checked="item.checked">{{item.name}}</el-checkbox>
           </el-checkbox-group>
         </el-form-item>
         <el-form-item>
@@ -145,7 +145,7 @@ export default {
     // 节点点击事件
     getNode(e) {
       this.id = e.id;
-      let data = { id: e.id, limit: this.limit, offset: this.offset };
+      let data = { id: e.id, limit:10, offset: 1};
       this.tableData = [];
       this.getUsers(data);
     },

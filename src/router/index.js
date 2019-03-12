@@ -215,7 +215,7 @@ export const asyncRouterMap = [
       {
         path: 'slogans',
         name: '班级口号',
-        component:() =>  import('@/view/v2/bookVersion/bookVersion'),
+        component:() =>  import('@/view/v2/class/slogans'),
         meta: { title: '班级口号', icon: 'icon-trumpetlaba' },
         menu:"cms:slogans:read",
         hidden:false

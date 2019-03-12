@@ -11,7 +11,8 @@ request.interceptors.request.use(config => {
     if (getToken()) {
         config.headers = {
             "Authorization": getToken(),
-            "Content-Type":"application/x-www-form-urlencoded; charset=UTF-8"
+            // "Content-Type":"application/x-www-form-urlencoded; charset=UTF-8"
+               "Content-Type":"application/json; charset=UTF-8"
         }
     }
     return config

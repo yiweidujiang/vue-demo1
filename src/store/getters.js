@@ -17,6 +17,8 @@ const getters = {
     name:state=>state.app.name,
     avatar:state=>state.app.avatar,
     userId:state=>state.app.userId,
+    // 用户组织id
+    organId:state=>state.app.organId
 
 }
 export default getters

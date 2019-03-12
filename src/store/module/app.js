@@ -49,7 +49,8 @@ const state={
     name:'',
     avatar: 'https://www.gravatar.com/avatar/6560ed55e62396e40b34aac1e5041028?imageView2/1/w/80/h/80',
     userId:null,
-    loadingTable:false
+    loadingTable:false,
+    organId:''
 
 
   };
@@ -85,6 +86,9 @@ const state={
     },
     SET_USERID:(state,res)=>{
       state.userId = res
+    },
+    SET_ORGANID:(state,res)=>{
+      state.organId = res
     }
 
   };
@@ -104,6 +108,8 @@ const state={
           let userInfo= res.data.userInfo
           commit('SET_NAME',userInfo.nickName)
           commit('SET_USERID',userInfo.userId)
+          commit('SET_ORGANID',userInfo.organId)
+          
           
           resolve(res)
         }).catch(e=>{
