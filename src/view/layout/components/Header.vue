@@ -45,9 +45,10 @@
             <el-dropdown-item>个人信息</el-dropdown-item>
           </router-link>
           <el-dropdown-item divided @click.native="LoginOut">
-            <span>
-              <i class="fa fa-sign-out"></i>退出
-            </span>
+            <!-- <span> -->
+              <!-- <i class="fa fa-sign-out"></i> -->
+              <router-link to="/login">退出</router-link> 
+            <!-- </span> -->
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>

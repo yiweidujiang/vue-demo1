@@ -1,4 +1,5 @@
-import {getSystem,getPermission} from '../../api/login'
+import {getSystem,getPermission,LoginOut} from '../../api/login'
+import { getToken,removeToken } from '../../utils/auth';
 
 function menuList(data){
   if(! (data instanceof Array)){
@@ -136,6 +137,16 @@ const state={
           })
       })
   },
+  LoginOut({commit}){
+    let data = getToken()
+    return new Promise((resolve,reject)=>{
+      LoginOut(data).then(res=>{
+        console.log(res)
+        removeToken()
+        window.location.href = 'http://192.168.17.168/uc/j_hh_security_logout'
+      })
+    })
+  }
 
 
 

@@ -138,8 +138,8 @@ export default {
     },
     getUsers(data) {
       getUsers(data).then(res => {
-        this.tableData = res.data.rows;
-        this.total = res.data.total;
+        this.tableData = res.data?res.data.rows:[];
+        this.total = res.data?res.data.total:0;
       });
     },
     // 节点点击事件

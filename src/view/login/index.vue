@@ -3,9 +3,10 @@
 </template>
 
 <script>
-import request from "@/utils/request";
+import {request} from "@/utils/request";
 import { setToken,removeToken } from "@/utils/auth";
 import { mapGetters } from "vuex";
+import service from "@/utils/service"
 export default {
   name: "login",
   created() {
@@ -31,6 +32,7 @@ export default {
         .then(res => {
           console.log(res)
           if (res.code == 1) {
+            console.log(res)
             setToken(res.data.token);
             window.location.reload();
           }
@@ -38,8 +40,7 @@ export default {
         .catch(err => {
           if (err.response.data.code == 401) {
             removeToken();
-            window.location =
-              "http://192.168.17.168:8088/auth/oauth/authorize?client_id=24&redirect_uri=http://192.168.17.146:8100&response_type=code";
+            window.location =service.laochaoURL+"/auth/oauth/authorize?client_id=24&redirect_uri="+service.serviceUrl+"&response_type=code";
           }
         });
     }

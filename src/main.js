@@ -8,10 +8,14 @@ import '@/assets/animate.min.css'
 // vuex
 import store from './store/index'
 // request 
-import request from './utils/request'
+import {request} from './utils/request'
 // element-ui
 import elementUi from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+
+// babel-polyfill
+import 'babel-polyfill'
+
 
 // 用户权限
 import './permission'
@@ -24,6 +28,10 @@ import './utils/element'
 import {hasPermission} from './utils/element'
 Vue.prototype.hasPer = hasPermission
 /* eslint-disable no-new */
+ 
+// js-md5
+import jsMd5 from 'js-md5'
+Vue.prototype.$md5 = jsMd5
 new Vue({
   el: '#app',
   router,

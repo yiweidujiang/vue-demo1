@@ -7,7 +7,7 @@ export const constantRouter = [
   {
     path: '/login',
     name: '登陆',
-    component: () => import('@/view/login')
+    component: () => import('@/view/login/index')
   },{
     path: '',
     component: Layout,
@@ -125,7 +125,7 @@ export const asyncRouterMap = [
       {
         path: 'index',
         name: '教材版本管理',
-        component:() =>  import('@/view/v2/bookVersion/bookVersion'),
+        component:() =>  import('@/view/v2/teaching/index'),
         meta: { title: '教材版本管理', icon: 'icon-jiaocaixuanze' },
         menu:"cms:bookVersion:read",
         hidden:false
@@ -133,7 +133,7 @@ export const asyncRouterMap = [
       {
         path: 'year',
         name: '学期学年管理',
-        component:() =>  import('@/view/v2/bookVersion/bookVersion'),
+        component:() =>  import('@/view/v2/teaching/year'),
         meta: { title: '学期学年管理', icon: 'icon-icon' },
         menu:"cms:schoolYear:read",
         hidden:false
@@ -141,7 +141,7 @@ export const asyncRouterMap = [
       {
         path: 'rest',
         name: '作息管理',
-        component:() =>  import('@/view/v2/bookVersion/bookVersion'),
+        component:() =>  import('@/view/v2/teaching/rest'),
         meta: { title: '作息管理', icon: 'icon-xiuxiyixia' },
         menu:"cms:schoolNodes:read",
         hidden:false
@@ -149,7 +149,7 @@ export const asyncRouterMap = [
       {
         path: 'timetable',
         name: '课表管理',
-        component:() =>  import('@/view/v2/bookVersion/bookVersion'),
+        component:() =>  import('@/view/v2/teaching/timetable'),
         meta: { title: '课表管理', icon: 'icon-kebiaoxinxi' },
         menu:"cms:schoolSchedule:read",
         hidden:false
@@ -166,7 +166,7 @@ export const asyncRouterMap = [
       {
         path: 'company',
         name: '局通知',
-        component:() =>  import('@/view/v2/bookVersion/bookVersion'),
+        component:() =>  import('@/view/v2/message/company'),
         meta: { title: '局通知', icon: 'icon-organ' },
         menu:"cms:eduNotice:read",
         hidden:false
@@ -174,7 +174,7 @@ export const asyncRouterMap = [
       {
         path: 'school',
         name: '校通知',
-        component:() =>  import('@/view/v2/bookVersion/bookVersion'),
+        component:() =>  import('@/view/v2/message/school'),
         meta: { title: '校通知', icon: 'icon-school' },
         menu:"cms:notice:read",
         hidden:false
@@ -182,7 +182,7 @@ export const asyncRouterMap = [
       {
         path: 'honor',
         name: '班级荣誉',
-        component:() =>  import('@/view/v2/bookVersion/bookVersion'),
+        component:() =>  import('@/view/v2/message/honor'),
         meta: { title: '班级荣誉', icon: 'icon-rongyu3' },
         menu:"cms:honor:read",
         hidden:false
@@ -190,7 +190,7 @@ export const asyncRouterMap = [
       {
         path: 'briefing',
         name: '班级通报',
-        component:() =>  import('@/view/v2/bookVersion/bookVersion'),
+        component:() =>  import('@/view/v2/message/briefing'),
         meta: { title: '班级通报', icon: 'icon-huaban' },
         menu:"cms:inspectionNotice:read",
         hidden:false
@@ -207,7 +207,7 @@ export const asyncRouterMap = [
       {
         path: 'photo',
         name: '班级相册',
-        component:() =>  import('@/view/v2/bookVersion/bookVersion'),
+        component:() =>  import('@/view/v2/class/photo'),
         meta: { title: '班级相册', icon: 'icon-xiangce' },
         menu:"cms:photo:read",
         hidden:false
@@ -223,7 +223,7 @@ export const asyncRouterMap = [
       {
         path: 'handPaper',
         name: '手抄报',
-        component:() =>  import('@/view/v2/bookVersion/bookVersion'),
+        component:() =>  import('@/view/v2/class/handPaper'),
         meta: { title: '手抄报', icon: 'icon-thin-_newspaper_' },
         menu:"cms:handPaper:read",
         hidden:false
@@ -240,14 +240,14 @@ export const asyncRouterMap = [
       {
         path: 'index',
         name: '影像馆',
-        component:() =>  import('@/view/v2/bookVersion/bookVersion'),
+        component:() =>  import('@/view/v2/vide/index'),
         meta: { title: '影像馆', icon: 'icon-yingxiangsheying' },
         menu:"cms:videoShop:read",
         hidden:false
       },
     ]
   },
-   // 影像馆
+   // 直播间
    {
     path: '/live',
     component: Layout,
@@ -257,7 +257,7 @@ export const asyncRouterMap = [
       {
         path: 'index',
         name: '直播室配置',
-        component:() =>  import('@/view/v2/bookVersion/bookVersion'),
+        component:() =>  import('@/view/v2/live/index'),
         meta: { title: '直播室配置', icon: 'icon-peizhiguanli2' },
         menu:"cms:studioConfig:read",
         hidden:false
@@ -265,7 +265,7 @@ export const asyncRouterMap = [
       {
         path: 'put',
         name: '直播室发布',
-        component:() =>  import('@/view/v2/bookVersion/bookVersion'),
+        component:() =>  import('@/view/v2/live/put'),
         meta: { title: '直播室发布', icon: 'icon-fabu3' },
         menu:"cms:studioPublish:read",
         hidden:false

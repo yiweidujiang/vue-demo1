@@ -1,4 +1,4 @@
-import request from '../utils/request.js'
+import {request} from '../utils/request.js'
 // 用户登录
 export function LoginA(data){
     return request({
@@ -18,10 +18,10 @@ export function GetUserInfoA(id){
     })
 }
 // 用户退出
-export function LoginOutA(token){
+export function LoginOut(token){
     return request({
-        url:'/api/admin/layout',
-        method:'post',
+        url:'/auth/oauth/logout',
+        method:'get',
         data:{
             token 
         }

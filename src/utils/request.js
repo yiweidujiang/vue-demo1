@@ -4,7 +4,7 @@ import store from '../store/index'
 import router from '../router'
 import { getToken, removeToken } from './auth'
 const request = axios.create({
-    baseURL: serviceUrl,
+    baseURL: serviceUrl.baseUrl,
     timeout: 3000,
 })
 request.interceptors.request.use(config => {
@@ -12,7 +12,7 @@ request.interceptors.request.use(config => {
         config.headers = {
             "Authorization": getToken(),
             // "Content-Type":"application/x-www-form-urlencoded; charset=UTF-8"
-               "Content-Type":"application/json; charset=UTF-8"
+              "Content-Type":"application/json; charset=UTF-8"
         }
     }
     return config
@@ -29,7 +29,7 @@ request.interceptors.response.use(res => {
         if(err.response.data.code==401){
             // 会话过期处理
             removeToken();
-            window.location.reload()
+            //window.location.reload()
         }
         else{
             // 其他code错误处理
@@ -39,6 +39,29 @@ request.interceptors.response.use(res => {
    
     return Promise.reject(err)
 })
-export default request
+
+// 192.168.18.113:3001---资源中心
+const request1 = axios.create({
+     baseURL:serviceUrl.baoUrl,
+    timeout:3000
+})
+
+request1.interceptors.request.use(config => {
+    return config
+},err => {
+    return Promise.reject(err)
+})
+
+request1.interceptors.response.use(res=>{
+    console.log(res)
+    return res.data
+},err => {
+    return Promise.reject(err)
+})
+
+export  {
+    request,
+    request1
+}
 
 

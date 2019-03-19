@@ -2,7 +2,7 @@
  * 组织类型管理
  * 
  */
-import request from '@/utils/request'
+import {request} from '@/utils/request'
 import store from '../store';
 //组织类型
 export function organizationTypeList(data){
@@ -144,3 +144,4 @@ export function ClassList(data){
         params:data
     })
 }
+

@@ -18,7 +18,9 @@ const getters = {
     avatar:state=>state.app.avatar,
     userId:state=>state.app.userId,
     // 用户组织id
-    organId:state=>state.app.organId
+    organId:state=>state.app.organId,
+    // topModelId
+    topModelId:_=>'59c1c48e4130a7401770154e',
 
 }
 export default getters

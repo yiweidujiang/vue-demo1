@@ -22,11 +22,15 @@
 <script>
 import { mapGetters } from "vuex";
 import { ClassList } from "@/api/v1";
-import { debug } from "util";
+
 export default {
   name: "selectSchool",
   created() {
     this.getClassList();
+    
+  },
+  updated(){
+    
   },
   mounted() {
   
@@ -54,7 +58,8 @@ export default {
       value2: "",
       dataList: [],
       label2: "",
-      label1: ""
+      label1: "",
+     
     };
   },
   computed: {
@@ -94,9 +99,7 @@ export default {
     }
   },
   watch: {
-    
     selectData: function(res,list) {
-         
       if (res != undefined) {
         this.value = res.xxNjxxId;
         this.value2 = res.xxBjxxId;
