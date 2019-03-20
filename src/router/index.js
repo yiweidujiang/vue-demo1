@@ -2,6 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Layout from '../view/layout/index'
+import Layout1 from  '../view/v3/layout/index'  
+
+
 Vue.use(Router)
 export const constantRouter = [
   {
@@ -272,6 +275,42 @@ export const asyncRouterMap = [
       },
     ]
   },
+  {
+    path:'/preparation',
+    name:'备课前台',
+    component:Layout1,
+    children: [{
+      path: 'home',
+      name: 'home',
+      component: () => import('@/view/v3/layout/view/home')
+    }, {
+      path: 'test',
+      name: 'test',
+      component: () => import('@/view/v3/layout/view/Preparation.vue')
+    }, {
+      path: 'preview/:id',
+      name: 'preview',
+      component: () => import('@/view/v3/layout/view/preview')
+    }, {
+      path: 'beike',
+      name: 'beike',
+      component: () => import('@/view/v3/layout/view/myClass')
+    }, {
+      path: 'jibei',
+      name: 'jibei',
+      component: () => import('@/view/v3/layout/view/jibei')
+    }, {
+      path: 'detail/:id',
+      name: 'detail',
+      component: () => import('@/view/v3/layout/view/jibeiDetail')
+    }, {
+      path: 'myself',
+      name: 'myself',
+      component: () => import('@/view/v3/layout/view/myself')
+    }]
+  },
+
+
   {
     path: '*',
     redirect: '/404',

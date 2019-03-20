@@ -20,6 +20,10 @@ export default {
 #app {
   height: 100%;
 }
+body{
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","\5FAE\8F6F\96C5\9ED1",Arial,sans-serif;
+  font-size:14px;
+}
 </style>
 <style lang="css">
 @import "./assets/iconfont.css";

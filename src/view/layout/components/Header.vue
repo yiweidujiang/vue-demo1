@@ -82,7 +82,12 @@ export default {
           if (action == "confirm") {
             setAppid(JSON.stringify(command));
             this.$store.commit("SET_SECRET", "");
-            this.$router.push({path:'/'})
+              if(command.appid==3){ 
+                this.$router.push({path:'/preparation'})
+              }else{
+                 this.$router.push({path:'/'})
+              }
+           
             this.$message({
               type: "success",
               message: "切换系统成功",

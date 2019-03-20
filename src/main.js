@@ -15,7 +15,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 
 // babel-polyfill
 import 'babel-polyfill'
-
+import './styles/style.scss';
 
 // 用户权限
 import './permission'

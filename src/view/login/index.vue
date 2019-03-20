@@ -40,7 +40,7 @@ export default {
         .catch(err => {
           if (err.response.data.code == 401) {
             removeToken();
-            window.location =service.laochaoURL+"/auth/oauth/authorize?client_id=24&redirect_uri="+service.serviceUrl+"&response_type=code";
+            window.location =service.laochaoURL+"/auth/oauth/authorize?client_id="+service.client_id+"&redirect_uri="+service.serviceUrl+"&response_type=code";
           }
         });
     }

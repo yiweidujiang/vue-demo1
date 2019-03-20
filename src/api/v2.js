@@ -450,6 +450,7 @@ export function VideoShopAdd(data){
         url:'/v2/manage/videoShop/create',
         method:"post",
         data:data
+        
     })
 }
 // 更新

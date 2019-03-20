@@ -230,16 +230,16 @@ export default {
       let check = e.gradeId.split(",").map(item => Number(item));
       this.gradeList = check;
       this.formData = e;
-      if (this.formData.status == 1) {
-        this.formData.status = true;
-      } else {
-        this.formData.status = false;
-      }
     },
     // 编辑表单
     editForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
+           if (this.formData.status == 1) {
+              this.formData.status = 1;
+            } else {
+              this.formData.status = 0;
+            }
           // 更新用户信息
           VideoShopUpdate(this.formData).then(res => {
             this.$message({
